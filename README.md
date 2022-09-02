@@ -4,7 +4,7 @@
 1. ISD Already installed and configured. This is typically the Saas Instance provided by OpsMx. You will need login credentials to the instance.
 2. A kubenetes cluster with minimum of 4CPU/16GB RAM. Recommend 8CPU/32GB or more depending on the number of accounts and cluster sizes
 3. Direct Internet accesss, specifically with access to github.com and quay.io and private access to accounts and artifacts with in your corporate network
-4. A laptop with git and kubeconfig that allows connecting to the kubernetes cluster where the agent is installed
+4. A laptop with git and kubectl (along with kubeconfig) commands that allows connecting to the kubernetes cluster where the agent is expected to be installed
 
 ## Installation steps
 ### Install clouddriver and redis: 
