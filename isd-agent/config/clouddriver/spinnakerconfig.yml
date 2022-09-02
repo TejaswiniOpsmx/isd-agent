@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    include: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ksrinimba/gitops40-install.git
+          username: ksrinimba
+          password: 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
+          basedir: /tmp/config-repo
+          searchPaths: /
+          #defaultLabel: main
+          refresh-rate: 10
+encrypt:
+  key: Q7udUkHPuA3VnNlOtksSgQ

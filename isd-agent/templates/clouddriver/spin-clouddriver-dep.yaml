@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    moniker.spinnaker.io/application: '"spin"'
+    moniker.spinnaker.io/cluster: '"clouddriver"'
+  labels:
+    app: spin
+    app.kubernetes.io/managed-by: halyard
+    app.kubernetes.io/name: clouddriver
+    app.kubernetes.io/part-of: spinnaker
+    app.kubernetes.io/version: 1.27.0
+    cluster: spin-clouddriver
+  name: spin-clouddriver
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: spin
+      cluster: spin-clouddriver
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: spin
+        app.kubernetes.io/managed-by: halyard
+        app.kubernetes.io/name: clouddriver
+        app.kubernetes.io/part-of: spinnaker
+        app.kubernetes.io/version: 1.27.0
+        cluster: spin-clouddriver
+    spec:
+      affinity: {}
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -XX:MaxRAMPercentage=100.0
+        - name: SPRING_PROFILES_ACTIVE
+          value: local
+        image: quay.io/opsmxpublic/ubi8-spin-clouddriver:1.27.0-v4.0-beta
+        imagePullPolicy: IfNotPresent
+        lifecycle: {}
+        name: clouddriver
+        ports:
+        - containerPort: 7002
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - wget
+            - --no-check-certificate
+            - --spider
+            - -q
+            - http://localhost:7002/health
+          failureThreshold: 3
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+{{- if .Values.resources }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}          
+{{- end }}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/spinnaker/config
+          name: spin-clouddriver-config
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 720
+{{- if .Values.imagePullSecret}}
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecret}}
+{{- end }}
+{{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+      {{- end }}
+      {{- if .Values.affinity }}
+      affinity:
+{{ toYaml .Values.affinity | indent 8 }}
+      {{- end }}
+{{- if .Values.tolerations }}
+      tolerations:
+{{ toYaml .Values.tolerations | indent 8 }}
+      {{- end }}
+      volumes:
+      - name: spin-clouddriver-config
+        secret:
+          defaultMode: 420
+          secretName: spin-clouddriver-config

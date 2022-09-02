@@ -1,0 +1,237 @@
+clouddriver:
+  appengine:
+    enabled: false
+    accounts: []
+  aws:
+    enabled: false
+    accounts: []
+    bakeryDefaults:
+      baseImages: []
+    defaultRegions:
+    - name: us-west-2
+    defaults:
+      iamRole: BaseIAMRole
+  ecs:
+    enabled: false
+    accounts: []
+  azure:
+    enabled: false
+    accounts: []
+    bakeryDefaults:
+      templateFile: azure-linux.json
+      baseImages: []
+  dcos:
+    enabled: false
+    accounts: []
+    clusters: []
+  dockerRegistry:
+    enabled: true
+    accounts:
+    - name: dockerhub
+      requiredGroupMembership: []
+      permissions: {}
+      address: https://index.docker.io
+      email: fake.email@spinnaker.io
+      cacheIntervalSeconds: 30
+      clientTimeoutMillis: 60000
+      cacheThreads: 1
+      paginateSize: 100
+      sortTagsByDate: false
+      trackDigests: false
+      insecureRegistry: false
+      repositories:
+      - library/alpine
+      - library/ubuntu
+      - library/centos
+      - library/nginx
+    primaryAccount: dockerhub
+  google:
+    enabled: false
+    accounts: []
+    bakeryDefaults:
+      templateFile: gce.json
+      baseImages: []
+      zone: us-central1-f
+      network: default
+      useInternalIp: false
+  huaweicloud:
+    enabled: false
+    accounts: []
+    bakeryDefaults:
+      baseImages: []
+  kubernetes:
+    enabled: true
+    accounts:
+    - name: default
+      requiredGroupMembership: []
+      permissions: {}
+      dockerRegistries:
+      - accountName: dockerhub
+        namespaces: []
+      providerVersion: V2
+      context: default
+      configureImagePullSecrets: true
+      serviceAccount: true
+      cacheThreads: 1
+      namespaces: []
+      omitNamespaces:
+      - kube-system
+      - kube-public
+      kinds: []
+      omitKinds: []
+      customResources: []
+      cachingPolicies: []
+      rawResourcesEndpointConfig: {}
+      oAuthScopes: []
+      onlySpinnakerManaged: true
+    primaryAccount: default
+  tencentcloud:
+    enabled: false
+    accounts: []
+    bakeryDefaults:
+      baseImages: []
+  oracle:
+    enabled: false
+    accounts: []
+    bakeryDefaults:
+      templateFile: oci.json
+      baseImages: []
+  cloudfoundry:
+    enabled: false
+    accounts: []
+  
+  artifacts:
+    bitbucket:
+      enabled: false
+      accounts: []
+    gcs:
+      enabled: false
+      accounts: []
+    oracle:
+      enabled: false
+      accounts: []
+    github:
+      enabled: true
+      accounts:
+      - name: opsmxdemo_account
+    gitlab:
+      enabled: false
+      accounts: []
+    gitrepo:
+      enabled: true
+      accounts:
+      - name: opsmx_repo
+        sshTrustUnknownHosts: false
+    http:
+      enabled: false
+      accounts: []
+    helm:
+      enabled: true
+      accounts:
+      - name: opsmx-oes-helm-repo
+        repository: https://helmcharts.opsmx.com
+    s3:
+      enabled: false
+      accounts: []
+    maven:
+      enabled: false
+      accounts: []
+    templates: []
+
+#Clouddriver dynamic account configuration
+dynamicAccounts: {}
+#  spring:
+#  profiles:
+#      include: git
+#   cloud:
+#      config:
+#        server:
+#          git:
+#            uri: https://github.com/ORG_NAME/REPO-NAME
+#            username: USERNAME
+#            password: YOUR_TOKEN  # Put the token here directly if not using the pre-processor
+#            basedir: /tmp/config-repo
+#            searchPaths: /
+#            #defaultLabel: main # CHANGE IF branch other than main
+#            refresh-rate: 10
+#  encrypt:
+#    key: Q7udUkHPuA3VnNlOtksSgQ
+#############################################################################
+# Global values, should not normally be needed
+#############################################################################
+image:
+  repository:  quay.io/opsmxpublic
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+imagePullSecrets: []
+###############################################################################
+## Details of redis-master image for OES
+installRedis: true
+redis:
+  ## Redis endpoint that is used by oes-gate and oes-platform for caching;
+  ## Change this to custom URL if installRedis is set to false
+  ## url: redis://{{ .Release.Name }}-redis-master:6379
+  url: redis://:password@{{ .Release.Name }}-redis-master
+  port: 6379
+  image:
+    registry: quay.io/opsmxpublic
+    repository: bitnami-redis
+  password: password
+  cluster:
+    enabled: false
+
+  # External Redis option will be enabled if in-cluster redis is disabled
+  external:
+    host: "<EXTERNAL-REDIS-HOST-NAME>"
+    port: 6379
+    # password: ""
+  nodeSelector: {}
+  master:
+    affinity: {}
+    tolerations: []
+    podAnnotations:
+      moniker.spinnaker.io/application: spin
+
+  ## Redis config file
+  ## ref: https://redis.io/topics/config
+  ##
+  configmap: |-
+    # Enable AOF https://redis.io/topics/persistence#append-only-file
+    appendonly no
+    # Disable RDB persistence, AOF persistence already enabled.
+    save 60 1000
+
+  # Uncomment if you don't want to create a PVC for redis
+  #  master:
+  #    persistence:
+  #      enabled: false
+
+podAnnotations: {}
+nodeSelector: {}
+tolerations: []
+affinity: {}
+podSecurityContext: {}
+    # fsGroup: 2000
+
+securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+

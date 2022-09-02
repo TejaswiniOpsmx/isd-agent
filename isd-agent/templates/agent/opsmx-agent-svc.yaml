@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opsmx-agent
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 8080
+    protocol: TCP
+    name: front50
+    targetPort: 8080
+  - port: 8083
+    protocol: TCP
+    name: orca
+    targetPort: 8083
+  selector:
+    app: opsmx-agent-opsmx-agent
+  sessionAffinity: None
+  type: ClusterIP
