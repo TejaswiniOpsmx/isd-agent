@@ -1,8 +1,8 @@
 # stormdriver-agent installation instructions
 
 ## What you need
-1. A kubenetes cluster with minimum of 16GB RAM. 32GB or more may be required depending on the number of accounts configured
-2. Internet accesss, specifically with access github.com and quay.io
+1. A kubenetes cluster with minimum of 4CPU/16GB RAM. Recommend 8CPU/32GB or more depending on the number of accounts and cluster sizes
+2. Direct Internet accesss, specifically with access to github.com and quay.io
 3. A laptop with git and kubeconfig that allows connecting to the kubernetes cluster where the agent is installed
 
 ## Installation steps
@@ -28,7 +28,6 @@ At this point, 3 pods should be running (opsmx-agent, spin-clouddriver and redis
 `kubectl get po -n AGENT-NAMESPACE`
   
 The agent should connect to the controller. Check by logging into the ISD-UI->settings->agents. The agent should status as "Connected" (green).
-  
   
 ### Test the Accounts
 - Login to the ISD UI
