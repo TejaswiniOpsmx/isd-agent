@@ -1,4 +1,4 @@
-# stormdriver-agent installation instructions
+# ISD-agent installation instructions
 
 ## What you need
 1. A kubenetes cluster with minimum of 4CPU/16GB RAM. Recommend 8CPU/32GB or more depending on the number of accounts and cluster sizes
