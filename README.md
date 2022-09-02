@@ -7,9 +7,9 @@
 
 ## Installation steps
 - Install clouddriver components: 
-  a. Clone this repo: `git clone https://github.com/OpsMx/isd-agent-v2.git`
-  b. `cd isd-agent` 
-  c. `helm install agent . -n <AGEMT-NAMAESPACE-IN_AGENT-CLUSTER> --debug`
+  1. Clone this repo: `git clone https://github.com/OpsMx/isd-agent-v2.git`
+  2. `cd isd-agent` 
+  3. `helm install agent . -n <AGEMT-NAMAESPACE-IN_AGENT-CLUSTER> --debug`
 [ Explanation: Clouddriver is "manually configured", agent-service needs to be added (See recommendations), redis is installed]
 - Create agent in ISD UI using the name "opsmx-agent" (do not use any other name)
 - Download manifest
