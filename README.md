@@ -12,7 +12,7 @@
 - Edit values.yaml to update the AWS, GCP and other cloud accounts and artifacts that are not accessible from the internet
   1. Actual values for config can be found from an existing spinnaker. Contact Opsmx Support for help, if required
   2. Dynamic accounts can be enabled by uncommenting the "dynamicAccount:" tag removing the "{}" as the value and updating the repo details
-- `helm install agent . -n <AGEMT-NAMAESPACE-IN_AGENT-CLUSTER> --debug`
+- `helm install agent . -n AGENT-NAMESPACE --debug`
 - Create agent in ISD UI using the name "opsmx-agent" (do not use any other name)
 - Download agent manifest
   1. Login the ISD UI
@@ -20,12 +20,12 @@
   3. If "opsmx-agent" is already there, click on the 3 vertical dots on the far right, edit-> Download Manifest
   4. If "opsmx-agent" is not there, click "New agent" and create one, save ->Download Manifest
 - The agent is designed to run in the "default" namespace. If different, Search the downloaded manifest for "namespace:" and edit it, to update it to the namespace you are installing the agent in (e.g. opsmx-agent)
-- **Create services file using opsmx-agent-services.yaml in this repo**: `kubectl apply -f opsmx-agent-services.yaml`
+- **Create services file using opsmx-agent-services.yaml in this repo**: `kubectl apply -f opsmx-agent-services.yaml -n AGENT-NAMESPACE`
   1. OPTIONALLY, add kubenetes and jenkins accounts in the services.yaml and execute the "apply" command 
-- Apply the agent configuration using: kubectl apply -f opsmx-agent.yaml -n <NAMAESPACE>
+- Apply the agent configuration using: `kubectl apply -f opsmx-agent.yaml -n AGENT-NAMESPACE`
 
 At this point, 3 pods should be running (opsmx-agent, spin-clouddriver and redis). Check by using; 
-`kubectl get po -n <NAMAESPACE>`
+`kubectl get po -n AGENT-NAMESPACE`
   
 The agent should connect to the controller. Check by logging into the ISD-UI->settings->agents. The agent should status as "Connected" (green).
   
