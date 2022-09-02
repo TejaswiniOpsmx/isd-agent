@@ -1,18 +1,15 @@
-# stormdriver-agent
-Agent for stormdriver that includes clouddriver and redis
+# stormdriver-agent installation instructions
 
-Instructions for installing the stormdriver:
-1. Install ISD
-- Set global.stormdriver: true in values.yaml
-- ensure that forwarder.externalName is set and is reachable from the agent on port 9001
-- In the Spinnaker-git-repo, ensure that we copy .hal/config and .hal/default/profiles/spinnaker.yaml from this repo/SPINNAKER-FILES
-[Explanation: clouddriver is set to non-HA and routed to stormdriver:7002]
-- Install spinnaker from enterprise-spinnaker, v4.0 branch [Explanation: Multiple changes:oes-gate routes clouddriver calls to stormdriver, controller is configured to route calls to front50 and fiat from remote-clouddriver]
-- **Create Agent-clouddriver URL using the instructions below and update stormdriver-config CM using**: `k edit cm stormdriver-config`
-- restart stormdriver
+## What you need
+1. A kubenetes cluster with minimum of 16GB RAM. 32GB or more may be required depending on the number of accounts configured
+2. Internet accesss, specifically to access github.com and quay.io
+3. A laptop with git and kubeconfig that allows connecting to the kubernetes cluster where the agent is installed
 
-2. Install agent in a different cluster/namespace
-- Install clouddriver component: a) Clone this repo, b) cd to isd-agent c) `helm upgrade --install agent . -n <AGEMT-NAMAESPACE-IN_AGENT-CLUSTER> --debug`
+## Installation steps
+- Install clouddriver components: 
+  a) Clone this repo: `git clone https://github.com/OpsMx/isd-agent-v2.git`
+  b) `cd isd-agent` 
+  c) `helm install agent . -n <AGEMT-NAMAESPACE-IN_AGENT-CLUSTER> --debug`
 [ Explanation: Clouddriver is "manually configured", agent-service needs to be added (See recommendations), redis is installed]
 - Create agent in ISD UI using the name "opsmx-agent" (do not use any other name)
 - Download manifest
