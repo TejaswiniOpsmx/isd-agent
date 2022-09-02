@@ -6,22 +6,36 @@
 3. A laptop with git and kubeconfig that allows connecting to the kubernetes cluster where the agent is installed
 
 ## Installation steps
-- Install clouddriver components: 
-  1. Clone this repo: `git clone https://github.com/OpsMx/isd-agent-v2.git`
-  2. `cd isd-agent` 
-  3. `helm install agent . -n <AGEMT-NAMAESPACE-IN_AGENT-CLUSTER> --debug`
-[ Explanation: Clouddriver is "manually configured", agent-service needs to be added (See recommendations), redis is installed]
+### Install clouddriver and redis: 
+- Clone this repo: `git clone https://github.com/OpsMx/isd-agent-v2.git`
+- `cd isd-agent` 
+- Edit values.yaml to update the AWS, GCP and other cloud accounts and artifacts that are not accessible from the internet
+  1. Actual values for config can be found from existing spinnaker. Contact Opsmx Support for help, if required
+  2. Dynamic accounts can be enabled by uncommenting the "dynamicAccount:" comments removing the "{}" as the value
+- `helm install agent . -n <AGEMT-NAMAESPACE-IN_AGENT-CLUSTER> --debug`
 - Create agent in ISD UI using the name "opsmx-agent" (do not use any other name)
-- Download manifest
-- Search the manifest for "namespace:" and edit it ("default" is the namespace already there) to update it to the namespace you are installing the agent in
-- **Create services file using opsmx-agent-services.yaml in this repo**: `k apply -f opsmx-agent-services.yaml`
-- Create the agent using: k apply -f opsmx-agent.yaml -n <NAMAESPACE>
+- Download agent manifest
+  1. Login the ISD UI
+  2. Go to setting->agent
+  3. If "opsmx-agent" is already there, click on the 3 vertical dots on the far right, edit-> Download Manifest
+  4. If "opsmx-agent" is not there, click "New agent" and create one, save ->Download Manifest
+- The agent is designed to run in the "default" namespace. If different, Search the downloaded manifest for "namespace:" and edit it, to update it to the namespace you are installing the agent in (e.g. opsmx-agent)
+- **Create services file using opsmx-agent-services.yaml in this repo**: `kubectl apply -f opsmx-agent-services.yaml`
+- Apply the agent configuration using: kubectl apply -f opsmx-agent.yaml -n <NAMAESPACE>
 
-At this point, agent should connect to the controller. Check using the logs of the agent.
+  
+At this point, 3 pods should be running (opsmx-agent, spin-clouddriver and redis). Check by using; 
+`kubectl get po -n <NAMAESPACE>`
+  
+The agent should connect to the controller. Check using the logs of the agent using:
+`kubectl logs -f <AGENT-POD-NAME> -n <NAMAESPACE>`
 
+The logs should contain:  
+`2022/09/02 15:09:13 version: v3.4.2, hash: 76135cc2fa2012cccb5106c5f4560d5798212821, buildType: release {"level":"info","ts":1662131353.2951057,"caller":"forwarder-agent/main.go:141","msg":"agent starting","version":"version: v3.4.2, hash: 76135cc2fa2012cccb5106c5f4560d5798212821, buildType: release","os":"linux","arch":"amd64","cores":8} {"level":"info","ts":1662131353.2960882,"caller":"forwarder-agent/main.go:177","msg":"config","controllerHostname":"controller-sdagent.opsmx.net:9001"} {"level":"info","ts":1662131353.296337,"caller":"serviceconfig/endpoints.go:99","msg":"adding endpoint","endpointType":"clouddriver","endpointName":"agent-clouddriver","endpointConfigured":true}`
+
+If there is a message that says "context...timeouted" and.or the agent pod goes into Error/Crashloop state, pLease see the troubleshooting tips at the end of this document
+  
 3. Configure AWS or other accounts by editing the values.yaml in agent-repo (isd-agent folder)
-- Actual values for config can be found from existing spinnaker
-- Dynamic accounts can be enabled by uncommenting the "dynamicAccount:" comments removing the "{}" as the value
 
 
 ## Updating Stormdriver configmap
