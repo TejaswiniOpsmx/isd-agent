@@ -14,7 +14,8 @@
   1. Actual values for config can be found from an existing spinnaker. Contact Opsmx Support for help, if required
   2. Dynamic accounts can be enabled by uncommenting the `dynamicAccount:` tag, removing the list placeholder `{}`, and updating the repo details with new values.
 - Using the target namesoace for the agent, install via Helm: `helm install agent . -n <AGENT-NAMESPACE> --debug`
-- Create agent in ISD UI using the name `opsmx-agent`
+- Move to the root of the cloned repo: `cd ..` 
+## Create agent in ISD UI using the name `opsmx-agent`
 - Download agent manifest from ISD
   1. Login the ISD UI
   2. Go to setting->agent
