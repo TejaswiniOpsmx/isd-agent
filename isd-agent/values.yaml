@@ -116,7 +116,7 @@ clouddriver:
   cloudfoundry:
     enabled: false
     accounts: []
-  
+
   artifacts:
     bitbucket:
       enabled: false
@@ -250,5 +250,3 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
-
