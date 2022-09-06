@@ -1,0 +1,82 @@
+    aws:
+      enabled: true
+      accounts:
+      - name: "rol-spinnaker-managed-role"
+        requiredGroupMembership: []
+        providerVersion: "v1"
+        permissions: {}
+        accountId: "732813442182"
+        assumeRole: "role/ROL-Spinnaker-Managed-Role"
+        lifecycleHooks: []
+        regions:
+        - name: "us-east-1"
+        - name: "us-west-2"
+      bakeryDefaults:
+        baseImages: []
+        awsAccessKey: "AKIA2VHXSDCEFHC54"
+        awsSecretKey: "9EiVriJ3s/O4A2CjxFs8nC3r/4s967ZOh6u4"
+      defaultKeyPairTemplate: "{{name}}-keypair"
+      defaultRegions:
+      - name: "us-west-2"
+      - name: "us-east-1"
+      defaults:
+        iamRole: "BaseIAMRole"
+      primaryAccount: "rol-spinnaker-managed-role"
+      accessKeyId: "AKIA2VHXSDCEFHC54"
+      secretAccessKey: "9EiVriJ3s/O4A2CjxFs8nC3r/4s967ZOh6u4"
+
+
+    github:
+      enabled: true
+      accounts:
+      - name: "opsmxdemo_account"
+      - name: "gh07"
+        username: "ramyaravi-opsmx"
+        token: "ghp_iFvdSJVViEod1Y9HZu7WJyWT22rVZP"
+    gitlab:
+      enabled: true
+      accounts:
+      - name: "opsmx_gitlab_artifact"
+        token: "gpt-Rx7rzApibP2N2cyqH"
+    gitrepo:
+      enabled: true
+      accounts:
+      - name: "opsmx_repo"
+      - name: "opsmx_gitlab_gitrepo"
+        username: "prasad.opsmx"
+        token: "gpt-Rx7XApibP2F2cyqH"
+    http:
+      enabled: false
+      accounts: []
+    helm:   
+      enabled: true
+      accounts:
+      - name: "opsmx-oes-helm-repo"  
+        repository: "https://helmcharts.opsmx.com"
+      - name: "ghp-helm"
+        repository: "http://opsmx.github.io/enterprise-spinnaker"
+        username: "username"
+        password: "PASSWORD"
+
+      gcb:
+        enabled: true
+        accounts:
+          - name: quotient-gcb1
+            permissions: {}
+            project: development-project-210505
+            subscriptionName: quotient-gcb1
+            jsonKey: "JSON KEY"
+
+    pubsub:
+      enabled: true
+      google:
+        enabled: true
+        pubsubType: GOOGLE
+        subscriptions:
+          - name: my-gcb1
+            project: development-project-21502
+            subscriptionName: my-gcb1
+            jsonPath: "gcr-account.json"
+            ackDeadlineSeconds: 10
+            messageFormat: GCB
+        publishers: []
