@@ -1,0 +1,28 @@
+{
+  "Version": "2008-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn:aws:iam::<AWS-Acc-ID-1>:root",
+          "arn:aws:iam::<AWS-Acc-ID-2>:root"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "ecs.amazonaws.com",
+          "ec2.amazonaws.com",
+          "ecs-tasks.amazonaws.com",
+          "lambda.amazonaws.com",
+          "application-autoscaling.amazonaws.com"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}

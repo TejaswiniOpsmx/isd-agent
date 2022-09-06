@@ -1,0 +1,36 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "sts:GetSessionToken",
+                "sts:DecodeAuthorizationMessage",
+                "sts:GetAccessKeyInfo",
+                "sts:GetCallerIdentity",
+                "sts:GetServiceBearerToken"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Action": [
+                "ec2:*",
+                "ec2:Describe*",
+                "ec2:CreateKeyPair"
+            ],
+            "Resource": "*",
+            "Effect": "Allow",
+            "Sid": "FullPermissions"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": "sts:*",
+            "Resource": [
+                "arn:aws:iam::*:role/CA-ROL-Spinnaker-Managed-role",
+                "arn:aws:iam::*:role/spinnaker-role-for-deploy"
+            ]
+        }
+    ]
+}

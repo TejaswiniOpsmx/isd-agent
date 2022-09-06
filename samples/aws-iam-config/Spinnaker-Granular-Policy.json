@@ -33,28 +33,6 @@
         },
         {
             "Action": [
-                "rds:CreateDBSubnetGroup",
-                "rds:ModifyDBParameterGroup",
-                "rds:ModifyDBClusterParameterGroup",
-                "rds:CreateDBParameterGroup",
-                "rds:DeleteDBSubnetGroup",
-                "rds:DeleteDBSecurityGroup",
-                "rds:DeleteDBParameterGroup",
-                "rds:CreateDBClusterParameterGroup",
-                "rds:ModifyDBCluster",
-                "rds:AddTagsToResource",
-                "rds:CreateDBSecurityGroup",
-                "rds:CreateDBCluster",
-                "rds:DeleteDBClusterParameterGroup",
-                "rds:ModifyDBSubnetGroup",
-                "rds:CreateDBInstance"
-            ],
-            "Resource": "*",
-            "Effect": "Allow",
-            "Sid": "RDSPermissions"
-        },
-        {
-            "Action": [
                 "cloudwatch:PutMetricAlarm",
                 "cloudwatch:DeleteAlarms"
             ],
@@ -66,7 +44,6 @@
             "Action": [
                 "ec2:*",
                 "ec2:Describe*",
-                "ec2:CreateKeyPair",
                 "elasticloadbalancing:*",
                 "autoscaling:*",
                 "s3:*",
