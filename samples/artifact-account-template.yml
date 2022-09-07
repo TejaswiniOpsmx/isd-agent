@@ -37,14 +37,14 @@
       enabled: true
       accounts:
       - name: "opsmx_gitlab_artifact"
-        token: "gpt-Rx7rzApibP2N2cyqH"
+        token: "gpt-Rx7rzibP2N2cyqH"
     gitrepo:
       enabled: true
       accounts:
       - name: "opsmx_repo"
       - name: "opsmx_gitlab_gitrepo"
         username: "prasad.opsmx"
-        token: "gpt-Rx7XApibP2F2cyqH"
+        token: "gpt-Rx7XAbP2F2cyqH"
     http:
       enabled: false
       accounts: []
