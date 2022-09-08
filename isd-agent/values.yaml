@@ -148,8 +148,10 @@ clouddriver:
       - name: opsmx-oes-helm-repo
         repository: https://helmcharts.opsmx.com
     s3:
-      enabled: false
-      accounts: []
+      enabled: true
+      accounts:
+      - name: my-s3-account
+        region: us-west-2
     maven:
       enabled: false
       accounts: []
