@@ -11,7 +11,7 @@
 - Clone this repo: `git clone https://github.com/OpsMx/isd-agent-v2.git`
 - Change to repository folder: `cd isd-agent` 
 - Edit `values.yaml` to update the AWS, GCP and other cloud accounts and artifacts that are not accessible from the internet
-  - The README in samples folder provides additional instructions, samples and documentation. Contact Opsmx Support for help, if required
+  - The [README](samples/README.md) in samples folder provides additional instructions, samples and documentation. Contact Opsmx Support for help, if required
 - Using the target namespace for the agent, install via Helm: `helm install agent . -n <AGENT-NAMESPACE> --debug`
 - Move to the root of the cloned repo: `cd ..` 
 ## Create agent in ISD UI using the name `opsmx-agent`
