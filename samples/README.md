@@ -9,3 +9,12 @@ Steps for Configuring Kuberenets accounts:
 5. Configure "dynamicAccounts" in values.yaml by providing the repo-access information
 
 
+Steps to configure AWS and other cloud resources:
+1. Ensure access to Cloud resources. For AWS, if using IAM access, please see file "document-links" for appropriate document 
+2. See the samples in artifact-account-template.yml file
+3. Edit the clouddriver sections as appropriate
+
+Steps to configure non-cloud artifact accounts:
+1. See the samples in artifact-account-template.yml file
+2. Edit the clouddriver sections as appropriate
+
