@@ -26,7 +26,7 @@
       - click "New agent" and create one, give a name that is short-form of your company name, please add description as appropriate e.g contact information
       - save
       - Download Manifest
-- The agent is designed to run in the `default` namespace. If using a different namespace, search the downloaded manifest for `namespace:` and (if found) edit it to update it to the namespace you are installing the agent in (e.g. opsmx-agent).
+- The downloaded agent Manifest is designed to run the agent in the `default` namespace. If using a different namespace, search the downloaded manifest for `namespace:` and (if found) edit it to update it to the namespace you are installing the agent in (e.g. opsmx-agent).
   - NOTE: You may need to change the "ClusterRole"/"ClusterRoleBinding" to "Role"/"RoleBinding" and delete the "namespace:" line, if you do not have cluster-level permissions
 - **Create services file using opsmx-agent-services.yaml in this repo**: 
    - Please follow the instructions provided in the opsmx-agent-services.yaml file in the root folder of this repo
