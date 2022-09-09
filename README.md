@@ -18,7 +18,7 @@
 - Download agent manifest from ISD
   1. Login the ISD UI
   2. Go to setting->agent
-  3. If your agent already exists, is already there:
+  3. If your agent already exists:
       - click on the 3 vertical dots on the far right
       - edit
       - Download Manifest
