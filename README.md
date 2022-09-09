@@ -11,28 +11,28 @@
 - Clone this repo: `git clone https://github.com/OpsMx/isd-agent-v2.git`
 - Change to repository folder: `cd isd-agent` 
 - Edit `values.yaml` to update the AWS, GCP and other cloud accounts and artifacts that are not accessible from the internet
-  1. Actual values for config can be found from an existing spinnaker. Contact Opsmx Support for help, if required
-  2. Dynamic accounts can be enabled by uncommenting the `dynamicAccount:` tag, removing the list placeholder `{}`, and updating the repo details with new values.
-- Using the target namesoace for the agent, install via Helm: `helm install agent . -n <AGENT-NAMESPACE> --debug`
+  - The README in samples folder provides additional instructions, samples and documentation. Contact Opsmx Support for help, if required
+- Using the target namespace for the agent, install via Helm: `helm install agent . -n <AGENT-NAMESPACE> --debug`
 - Move to the root of the cloned repo: `cd ..` 
 ## Create agent in ISD UI using the name `opsmx-agent`
 - Download agent manifest from ISD
   1. Login the ISD UI
   2. Go to setting->agent
-  3. If "opsmx-agent" is already there:
+  3. If your agent already exists, is already there:
       - click on the 3 vertical dots on the far right
       - edit
       - Download Manifest
-  4. If "opsmx-agent" is not there:
-      - click "New agent" and create one
+  4. If your agent is not there:
+      - click "New agent" and create one, give a name that is short-form of your company name, please add description as appropriate e.g contact information
       - save
       - Download Manifest
-- The agent is designed to run in the namespace named `default` . If using a different namespace, search the downloaded manifest for `namespace:` and edit it to update it to the namespace you are installing the agent in (e.g. opsmx-agent).
+- The agent is designed to run in the namespace named `default`. If using a different namespace, search the downloaded manifest for `namespace:` and edit it to update it to the namespace you are installing the agent in (e.g. opsmx-agent).
+  - Alternatively, change the "ClusterRole"/"ClusterRoleBinding" to "Role"/"RoleBinding" and delete the "namespace:" line, if this what you prefer
 - **Create services file using opsmx-agent-services.yaml in this repo**: `kubectl apply -f opsmx-agent-services.yaml -n AGENT-NAMESPACE`
-  1. OPTIONALLY, add kubenetes and jenkins accounts in the services.yaml and execute the "apply" command 
-- Apply the agent configuration using: `kubectl apply -f opsmx-agent.yaml -n AGENT-NAMESPACE`
+   - Please follow the instructions provided in the sample file in the root folder of this repo
+- Apply the agent configuration using: `kubectl apply -f <downloaded-agent-manifest>.yaml -n AGENT-NAMESPACE`
 
-At this point, 3 pods should be running (opsmx-agent, spin-clouddriver and redis). Check by using 
+At this point, 3 pods should be running (opsmx-agent-AGENT_NAME, spin-clouddriver and redis). Check by using 
 `kubectl get po -n AGENT-NAMESPACE`
   
 The agent should connect to the controller. Check by logging into the ISD-UI->settings->agents. The agent should status as "Connected" (green).
@@ -54,12 +54,15 @@ The logs should contain:
 
 If there is a message that says "context...timeouted", that means that it is unable to reach the controller. Check the internet connection between the agent and the host cluster.
 
+# Troubleshooting
+
 ## The agent pod goes into Error/Crashloop state
 1. This means that the *services.yaml contains an error OR has not been applied. The agent-log should show what the issues is.
 
 ## The accounts do not show up in Spinnaker
 1. Please wait a few minutes as it takes some time for the accounts/changes to be reflected in the UI
 2. Check the clouddriver logs to ensure that persmissions/access is correct and that there are no errors. A stack-trace talking about "unable to fetch metadata" is normal and does not affect the functionality
+  - It should show the account names (e.g my-aws-acc) in the logs as "Caching....ACCOUNT NAME" e.g: `**my-k8s-acc**/KubernetesCoreCachingAgent[1/1]: grouping statefulSet has 1 entries and 5 relationships` 
 3. Contact Opsmx Support  
   
 # Upcoming improvements roadmap
