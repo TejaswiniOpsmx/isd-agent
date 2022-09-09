@@ -10,7 +10,8 @@ Steps for Configuring Kuberenets accounts:
 
 
 Steps to configure AWS and other cloud resources:
-1. Ensure access to Cloud resources. For AWS, if using IAM access, please see file "document-links" for appropriate document 
+1. Ensure access to Cloud resources. For AWS, if using IAM access, please see file "document-links" for appropriate document.
+   - the files in aws-iam-config folder provide sample policies, trust-relationships and more
 2. See the samples in artifact-account-template.yml file
 3. Edit the clouddriver sections as appropriate
 
