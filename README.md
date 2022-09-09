@@ -62,10 +62,11 @@ If there is a message that says "context...timeouted", that means that it is una
 ## The accounts do not show up in Spinnaker
 1. Please wait a few minutes as it takes some time for the accounts/changes to be reflected in the UI
 2. Check the clouddriver logs to ensure that persmissions/access is correct and that there are no errors. A stack-trace talking about "unable to fetch metadata" is normal and does not affect the functionality
-  - It should show the account names (e.g my-aws-acc) in the logs as "Caching....ACCOUNT NAME" e.g: `**my-k8s-acc**/KubernetesCoreCachingAgent[1/1]: grouping statefulSet has 1 entries and 5 relationships` 
+  - It should show the account names (e.g my-aws-acc) in the logs as "Caching....ACCOUNT NAME" e.g: `my-k8s-acc/KubernetesCoreCachingAgent[1/1]: grouping statefulSet has 1 entries and 5 relationships` 
+  - If there are any errors "unable to access" or "unauthorized", please check your authentication settings
 3. Contact Opsmx Support  
   
-# Upcoming improvements roadmap
+## Upcoming improvements roadmap
 1. ISD-UI assistence for configuring accounts and artifacts in values.yaml
 2. ISD-UI to provide the following:
     - Sample config file (opsmx-agent-services.yaml)
