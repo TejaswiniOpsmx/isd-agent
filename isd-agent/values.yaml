@@ -1,9 +1,18 @@
+# #############################################################################################
+# Please update this file with the information appropriate for your situation
+# At a minimum, we must chanbe
+# agentName: your agent name
+# clouddriver: In section configure the accounts we want to use such as aws, s3 artifact, etc.
+# dynamicAccounts: This section allows for kubenetes accounts to be configured. Follow instructions in the README.md
+# #############################################################################################
+#
+agentName: YOUR_AGENT_NAME # MUST match the name given in ISD-UI, Recommend putting your company-name-short-form
 clouddriver:
   appengine:
     enabled: false
     accounts: []
   aws:
-    enabled: true
+    enabled: false  # Must be changed to true and edit parameters for AWS/ECS/S3 access
     accounts:
     - name: "rol-spinnaker-managed-role"
       requiredGroupMembership: []
@@ -19,7 +28,7 @@ clouddriver:
       baseImages: []
       awsAccessKey: "<AWS-ACCESS-KEY>"
       awsSecretKey: "<AWS-SECRET-KEY>"
-    defaultKeyPairTemplate: "{{`{{name}}-keypair`}}"
+    defaultKeyPairTemplate: '{{ "{{" }}name{{ "}}" }}-keypair'
     defaultRegions:
     - name: "us-west-2"
     - name: "us-east-1"
@@ -116,7 +125,7 @@ clouddriver:
   cloudfoundry:
     enabled: false
     accounts: []
-
+  
   artifacts:
     bitbucket:
       enabled: false
@@ -148,7 +157,7 @@ clouddriver:
       - name: opsmx-oes-helm-repo
         repository: https://helmcharts.opsmx.com
     s3:
-      enabled: true
+      enabled: false
       accounts:
       - name: my-s3-account
         region: us-west-2
@@ -252,3 +261,5 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+

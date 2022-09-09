@@ -1,31 +1,44 @@
+# Sample configuration for the agent
+# At a minimum, change the following
+# metadata.name: This needs to be in the format "opsmx-service-THE-AGENT-NAME in ISD UI"
+#
+# Additional changes can be done, based on your needs. For example jenkins account can be added, else delete the entries
+#
+# PLEASE DO NOT change the clouddriver, fiat and fron50 services
 apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
     agent.opsmx.com/name: agent1
     agent.opsmx.com/role: agent
-  name: opsmx-services-opsmx-agent
+  name: opsmx-services-YOUR_AGENT_NAME ##### MUST CHANGE
+  #name: opsmx-services-opsmx-agent
 data:
   services.yaml: |
     outgoingServices:
-      - name: agent-clouddriver
+      - name: agent-clouddriver ## DO NOT CHANGE THIS entrie
         type: clouddriver
         enabled: true
         config:
           url: http://spin-clouddriver:7002
-      - name: demo-cluster
-        type: kubernetes
+      - name: dev-jenkins
+        type: jenkins
         enabled: true
-        namespaces:
-        - name: test
-          namespaces:
-            - ninja-1
-            - ninja-2
-        - name: dev
-          namespaces:
-            - ninja-3
-            - ninja-4
-    incomingServices:
+        config:
+          url: https://dev-jenkins.opsmx.com
+          credentials:
+            type: basic
+            secretName: jenkpass # k create secret generic jenkpass --from-literal username=UU --from-literal password=PP
+      - name: dev-jen-inline-pass
+        type: jenkins
+        enabled: true
+        config:
+          url: http://jenkins.opsmx.net:8181/jenkins/
+          #credentials:
+          #  type: basic
+          #  username: b3BbkZXY=   # Base64 encoded
+          #  password: QnVYlYmVlQDEyMyQ=
+    incomingServices: # DO NOT CHANGE THESE
       - name: front50
         serviceType: front50
         port: 8080

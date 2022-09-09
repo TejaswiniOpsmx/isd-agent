@@ -17,6 +17,6 @@ spec:
     name: orca
     targetPort: 8083
   selector:
-    app: opsmx-agent-opsmx-agent
+    app: opsmx-agent-{{ .Values.agentName }}
   sessionAffinity: None
   type: ClusterIP
