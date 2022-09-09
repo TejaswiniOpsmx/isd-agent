@@ -33,7 +33,7 @@ data:
         type: jenkins
         enabled: true
         config:
-          url: http://jenkins.opsmx.net:8181/jenkins/
+          url: http://jenkins.opsmx.net/jenkins/
           #credentials:
           #  type: basic
           #  username: b3BbkZXY=   # Base64 encoded

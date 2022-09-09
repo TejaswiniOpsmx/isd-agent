@@ -1,7 +1,11 @@
+# This file defines the kubernetes accounts used in your agent if it is configured value "dynamicAccounts:" tag in values.yaml
+# At a minimum please change 'name:' in the accounts section. Also, 'kubeCfg_default' file must be present in the same git-repo
+# as this file
+#
 kubernetes:
   enabled: true
   accounts:
-  - name: "default"
+  - name: "my-account" # THIS MUST BE CHANGED
     liveManifestCalls: true
     requiredGroupMembership: []
     providerVersion: "v2"

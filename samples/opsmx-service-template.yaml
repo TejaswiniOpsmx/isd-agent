@@ -32,23 +32,11 @@ data:
         type: jenkins
         enabled: true
         config:
-          url: http://jenkins.opsmx.net:8181/jenkins/
+          url: http://jenkins.opsmx.net/jenkins/
           #credentials:
           #  type: basic
           #  username: b3BbkZXY=   # Base64 encoded
           #  password: QnVYlYmVlQDEyMyQ=
-      - name: demo-cluster
-        type: kubernetes
-        enabled: true
-        namespaces:
-        - name: ninja
-          namespaces:
-            - ninja-srini
-            - ninja-yeshaswini
-        - name: dev-ns
-          namespaces:
-            - ninja-susmitha
-            - ninja-vamsi
       - name: dev-artifactory
         type: artifactory
         enabled: true
