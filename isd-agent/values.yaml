@@ -125,7 +125,18 @@ clouddriver:
   cloudfoundry:
     enabled: false
     accounts: []
-  
+  repository:
+    artifactory:
+      enabled: true
+      searches:
+      - name: "artifactory-agent"
+        permissions: {}
+        baseUrl: "https://opsmx.jfrog.io"
+        repo: "opsmx-helm-local"
+        groupId: "1.0.1"
+        repoType: "helm"
+        username: "harsha"
+        password: "ae6701e53595bb10654c7c224ba2a3d546f76a84fe5dc6a761929f9977c6474f"
   artifacts:
     bitbucket:
       enabled: false
